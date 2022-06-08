@@ -1,6 +1,6 @@
-function ImagePopup({card,onClose}) {
+function ImagePopup({card, onClose}) {
     return (
-        <section id="popupPic" className={"popup popup_blackout" + (card? ' popup_opened' : '')}>
+        <section id="popupPic" className={"popup popup_blackout" + (card.name? ' popup_opened' : '')}>
             <figure className="popup__figure">
                 <button
                     id="popupPicClose"

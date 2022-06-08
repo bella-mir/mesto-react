@@ -1,5 +1,6 @@
 .page {
   max-width: 880px;
+  min-height: 100vh;
   background-color: black;
   font-family: "Inter", "Arial", sans-serif;
   color: white;

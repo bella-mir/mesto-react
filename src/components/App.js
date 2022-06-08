@@ -3,15 +3,12 @@ import "../index.css";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditProfilePopupOpen, openEditProfile] = React.useState(false);
   const [isAddPlacePopupOpen, openAddPlace] = React.useState(false);
   const [isEditAvatarPopupOpen, openEditAvatar] = React.useState(false);
-  const [isImagePopupOpen, openImagePopup] = React.useState(false);
-
-  const [selectedCard, setSelectedCards] = React.useState('');
+  const [selectedCard, setSelectedCards] = React.useState({});
 
   const handleEditAvatarClick = () => {
     openEditAvatar(!isEditAvatarPopupOpen);
@@ -29,7 +26,7 @@ function App() {
     openEditAvatar(false);
     openEditProfile(false);
     openAddPlace(false);
-    setSelectedCards('');
+    setSelectedCards({});
   };
 
   const handleCardClick = (card) => {
@@ -47,7 +44,6 @@ function App() {
           isEditAvatarPopupOpen={isEditAvatarPopupOpen}
           isAddPlacePopupOpen={isAddPlacePopupOpen}
           isEditProfilePopupOpen={isEditProfilePopupOpen}
-          isImagePopupOpen={isImagePopupOpen}
           onCloseAll={closeAllPopups}
           onCardClick={handleCardClick}
           selectedCard={selectedCard}
