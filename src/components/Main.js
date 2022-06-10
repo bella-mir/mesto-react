@@ -32,7 +32,7 @@ function Main(props) {
       <section className="profile">
         <div className="profile__info">
           <div className="profile__photo-edit">
-            <img src={userAvatar} className="profile__photo" />
+          {(userAvatar === undefined || userAvatar === null || userAvatar === "") ?  <div></div> : <img src = {userAvatar} alt='profile face' className="profile__photo" />}
             <button
               type="button"
               className="profile__photo-edit-button"
@@ -41,7 +41,7 @@ function Main(props) {
           </div>
           <div className="profile__text">
             <div className="profile__firstline">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{(userName === undefined || userName === null) ? '' : userName}</h1>
               <button
                 id="editButton"
                 type="button"
@@ -49,7 +49,7 @@ function Main(props) {
                 onClick={props.onEditProfile}
               ></button>
             </div>
-            <p className="profile__description">{userDescription}</p>
+            <p className="profile__description">{(userDescription === undefined || userDescription === null) ? '' : userDescription}</p>
           </div>
         </div>
         <button
