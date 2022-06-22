@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
+  const currentUser = useContext(CurrentUserContext);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+}
+
   useEffect(() => {
-    api
-      .getUserData()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => console.error(err));
     api
       .getInitialCards()
       .then((data) => {
@@ -32,7 +32,7 @@ function Main(props) {
       <section className="profile">
         <div className="profile__info">
           <div className="profile__photo-edit">
-          {(userAvatar === undefined || userAvatar === null || userAvatar === "") ?  <div></div> : <img src = {userAvatar} alt='profile face' className="profile__photo" />}
+          {(currentUser.avatar === undefined || currentUser.avatar === null || currentUser.avatar === "") ?  <div></div> : <img src = {currentUser.avatar} alt='profile face' className="profile__photo" />}
             <button
               type="button"
               className="profile__photo-edit-button"
@@ -41,7 +41,7 @@ function Main(props) {
           </div>
           <div className="profile__text">
             <div className="profile__firstline">
-              <h1 className="profile__name">{(userName === undefined || userName === null) ? '' : userName}</h1>
+              <h1 className="profile__name">{(currentUser.name === undefined || currentUser.name === null) ? '' : currentUser.name}</h1>
               <button
                 id="editButton"
                 type="button"
@@ -49,7 +49,7 @@ function Main(props) {
                 onClick={props.onEditProfile}
               ></button>
             </div>
-            <p className="profile__description">{(userDescription === undefined || userDescription === null) ? '' : userDescription}</p>
+            <p className="profile__description">{(currentUser.about === undefined || currentUser.about === null) ? '' : currentUser.about}</p>
           </div>
         </div>
         <button
@@ -63,7 +63,7 @@ function Main(props) {
       </section>
       <section class="places">
         {cards.map((card) => (
-          <Card card={card} onCardClick={props.onCardClick} />
+          <Card card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike} />
         ))}
       </section>
 
