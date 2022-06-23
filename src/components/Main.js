@@ -73,7 +73,7 @@ function Main(props) {
 
       <EditAvatarPopup
         isOpen={props.isEditAvatarPopupOpen}
-        onClose={props.closeAllPopups}
+        onClose={props.onCloseAll}
         onUpdateAvatar={props.handleUpdateAvatar}
       />
 
