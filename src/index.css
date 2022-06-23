@@ -28,6 +28,7 @@
 @import url(./blocks/place/__like-count/place__like-count.css);
 @import url(./blocks/place/__like-section/place__like-section.css);
 @import url(./blocks/place/__remove/place__remove.css);
+@import url(./blocks/place/__remove/_hidden/place__remove_hidden.css);
 @import url(./blocks/place/__like/_active/place__like_active.css);
 
 @import url(./blocks/popup/popup.css);

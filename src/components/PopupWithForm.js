@@ -5,6 +5,7 @@ function PopupWithForm({
   isOpen,
   children,
   buttonText = "Сохранить",
+  onSubmit
 }) {
   return (
     <section
@@ -13,14 +14,13 @@ function PopupWithForm({
     >
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
-        <form id={`form_${name}`} name={name} className="form" novalidate>
+        <form id={`form_${name}`} name={name} className="form" novalidate onSubmit={onSubmit}>
           {children}
           <input
             id="submit_avatar"
-            className="form__submit form__submit_inactive"
+            className="form__submit"
             type="submit"
             value={buttonText}
-            disabled
           />
         </form>
         <button
