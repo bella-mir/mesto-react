@@ -6,6 +6,7 @@
 
 ## Created as one of the [Yandex.Praktikum](https://praktikum.yandex.com/) Bootcamp projects
 
+[Github Pages](https://belka-mironova.github.io/mesto-react/)
 
 **Description**
 
