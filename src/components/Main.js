@@ -13,11 +13,7 @@ function Main(props) {
       <section className="profile">
         <div className="profile__info">
           <div className="profile__photo-edit">
-            {currentUser.avatar === undefined ||
-            currentUser.avatar === null ||
-            currentUser.avatar === "" ? (
-              <div></div>
-            ) : (
+            {currentUser?.avatar && (
               <img
                 src={currentUser.avatar}
                 alt="profile face"

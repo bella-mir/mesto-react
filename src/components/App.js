@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../index.css";
 import Header from "./Header.js";
 import Main from "./Main.js";
@@ -7,11 +7,11 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 
 function App() {
-  const [isEditProfilePopupOpen, openEditProfile] = React.useState(false);
-  const [isAddPlacePopupOpen, openAddPlace] = React.useState(false);
-  const [isEditAvatarPopupOpen, openEditAvatar] = React.useState(false);
-  const [selectedCard, setSelectedCards] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [isEditProfilePopupOpen, openEditProfile] = useState(false);
+  const [isAddPlacePopupOpen, openAddPlace] = useState(false);
+  const [isEditAvatarPopupOpen, openEditAvatar] = useState(false);
+  const [selectedCard, setSelectedCards] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
   const [cards, setCards] = useState([]);
 
@@ -22,31 +22,49 @@ function App() {
         setCards(data);
       })
       .catch((err) => console.error(err));
+
+    api
+      .getUserData()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     if (!isLiked) {
-      api.setLikeCard(card._id).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+      api
+        .setLikeCard(card._id)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch((err) => console.error(err));
     } else {
-      api.deleteLikeCard(card._id).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+      api
+        .deleteLikeCard(card._id)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch((err) => console.error(err));
     }
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id);
-    const updatedCards = cards.filter(function (e) {
-      return e._id !== card._id;
-    });
-    setCards(updatedCards);
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) =>
+          cards.filter(function (e) {
+            return e._id !== card._id;
+          })
+        );
+      })
+      .catch((err) => console.error(err));
   }
 
   function handleAddPlaceSubmit(data) {
@@ -101,15 +119,6 @@ function App() {
       })
       .catch((err) => console.error(err));
   }
-
-  useEffect(() => {
-    api
-      .getUserData()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
