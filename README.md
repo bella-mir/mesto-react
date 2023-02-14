@@ -6,7 +6,7 @@
 
 ## Created as one of the [Yandex.Praktikum](https://praktikum.yandex.com/) Bootcamp projects
 
-[Github Pages](https://belka-mironova.github.io/mesto-react/)
+[Github Pages](https://bella-mir.github.io/mesto-react/)
 
 **Description**
 
@@ -17,7 +17,7 @@ In this work  I've used React to make the page interactive.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/belka-mironova/mesto-react.git
+   git clone https://github.com/bella-mir/mesto-react.git
    ```
 2. Install NPM packages
    ```sh
